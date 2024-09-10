@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json.Serialization;
 using FFMpegCore.Enums;
 
 namespace FFMpegCore
@@ -23,7 +24,7 @@ namespace FFMpegCore
         /// <summary>
         /// Encoding used for parsing stdout/stderr on ffmpeg and ffprobe processes
         /// </summary>
-        public Encoding Encoding { get; set; } = Encoding.Default;
+        public string Encoding { get; set; } = string.Empty;
 
         /// <summary>
         /// The log level to use when calling of the ffmpeg executable.
@@ -32,11 +33,13 @@ namespace FFMpegCore
         /// to set the log level for that command.
         /// </para>
         /// </summary>
+        [JsonIgnore]
         public FFMpegLogLevel? LogLevel { get; set; }
 
         /// <summary>
         ///
         /// </summary>
+        [JsonIgnore]
         public Dictionary<string, string> ExtensionOverrides { get; set; } = new()
         {
             { "mpegts", ".ts" },
@@ -45,6 +48,7 @@ namespace FFMpegCore
         /// <summary>
         /// Whether to cache calls to get ffmpeg codec, pixel- and container-formats
         /// </summary>
+        [JsonIgnore]
         public bool UseCache { get; set; } = true;
 
         /// <inheritdoc/>

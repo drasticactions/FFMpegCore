@@ -1,17 +1,18 @@
 <Project>
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
         <NeutralLanguage>en</NeutralLanguage>
         <AssemblyVersion>5.0.0.0</AssemblyVersion>
         <LangVersion>default</LangVersion>
         <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <ImplicitUsings>enable</ImplicitUsings>
 
         <RepositoryType>GitHub</RepositoryType>
-        <RepositoryUrl>https://github.com/rosenbjerg/FFMpegCore</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/rosenbjerg/FFMpegCore</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/drasticactions/FFMpegCore</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/drasticactions/FFMpegCore</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <NeutralLanguage>en</NeutralLanguage>
+        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
     </PropertyGroup>
 </Project>

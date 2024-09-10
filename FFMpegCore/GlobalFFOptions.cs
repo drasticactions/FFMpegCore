@@ -52,7 +52,7 @@ namespace FFMpegCore
         private static FFOptions LoadFFOptions()
         {
             return File.Exists(ConfigFile)
-                ? JsonSerializer.Deserialize<FFOptions>(File.ReadAllText(ConfigFile))!
+                ? JsonSerializer.Deserialize<FFOptions>(File.ReadAllText(ConfigFile), SourceGenerationContext.Default.FFOptions)!
                 : new FFOptions();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 using FFMpegCore.Enums;
 using FFMpegCore.Exceptions;
@@ -229,12 +230,18 @@ namespace FFMpegCore
                 arguments += $" -v {normalizedLogLevel}";
             }
 
+            var encoding = Encoding.Default;
+            if (!string.IsNullOrEmpty(ffOptions.Encoding))
+            {
+                encoding = Encoding.GetEncoding(ffOptions.Encoding);
+            }
+
             var startInfo = new ProcessStartInfo
             {
                 FileName = GlobalFFOptions.GetFFMpegBinaryPath(ffOptions),
                 Arguments = arguments,
-                StandardOutputEncoding = ffOptions.Encoding,
-                StandardErrorEncoding = ffOptions.Encoding,
+                StandardOutputEncoding = encoding,
+                StandardErrorEncoding = encoding,
                 WorkingDirectory = ffOptions.WorkingDirectory
             };
             var processArguments = new ProcessArguments(startInfo);

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
 using FFMpegCore.Arguments;
 using FFMpegCore.Exceptions;
@@ -158,10 +159,7 @@ namespace FFMpegCore
         private static IMediaAnalysis ParseOutput(IProcessResult instance)
         {
             var json = string.Join(string.Empty, instance.OutputData);
-            var ffprobeAnalysis = JsonSerializer.Deserialize<FFProbeAnalysis>(json, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
+            var ffprobeAnalysis = JsonSerializer.Deserialize<FFProbeAnalysis>(json, SourceGenerationContext.Default.FFProbeAnalysis);
 
             if (ffprobeAnalysis?.Format == null)
             {
@@ -174,11 +172,7 @@ namespace FFMpegCore
         private static FFProbeFrames ParseFramesOutput(IProcessResult instance)
         {
             var json = string.Join(string.Empty, instance.OutputData);
-            var ffprobeAnalysis = JsonSerializer.Deserialize<FFProbeFrames>(json, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString | System.Text.Json.Serialization.JsonNumberHandling.WriteAsString
-            });
+            var ffprobeAnalysis = JsonSerializer.Deserialize<FFProbeFrames>(json, SourceGenerationContext.Default.FFProbeFrames);
 
             return ffprobeAnalysis!;
         }
@@ -186,11 +180,7 @@ namespace FFMpegCore
         private static FFProbePackets ParsePacketsOutput(IProcessResult instance)
         {
             var json = string.Join(string.Empty, instance.OutputData);
-            var ffprobeAnalysis = JsonSerializer.Deserialize<FFProbePackets>(json, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString | System.Text.Json.Serialization.JsonNumberHandling.WriteAsString
-            });
+            var ffprobeAnalysis = JsonSerializer.Deserialize<FFProbePackets>(json, SourceGenerationContext.Default.FFProbePackets);
 
             return ffprobeAnalysis!;
         }
@@ -223,10 +213,15 @@ namespace FFMpegCore
         {
             FFProbeHelper.RootExceptionCheck();
             FFProbeHelper.VerifyFFProbeExists(ffOptions);
+            var encoding = Encoding.Default;
+            if (!string.IsNullOrEmpty(ffOptions.Encoding))
+            {
+                encoding = Encoding.GetEncoding(ffOptions.Encoding);
+            }
             var startInfo = new ProcessStartInfo(GlobalFFOptions.GetFFProbeBinaryPath(ffOptions), $"{arguments} {customArguments}")
             {
-                StandardOutputEncoding = ffOptions.Encoding,
-                StandardErrorEncoding = ffOptions.Encoding,
+                StandardOutputEncoding = encoding,
+                StandardErrorEncoding = encoding,
                 WorkingDirectory = ffOptions.WorkingDirectory
             };
             return new ProcessArguments(startInfo);
