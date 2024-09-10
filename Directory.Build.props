@@ -2,7 +2,6 @@
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
         <NeutralLanguage>en</NeutralLanguage>
-        <AssemblyVersion>5.0.0.0</AssemblyVersion>
         <LangVersion>default</LangVersion>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -15,4 +14,11 @@
         <NeutralLanguage>en</NeutralLanguage>
         <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
     </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GitVersion.MSBuild">
+            <PrivateAssets>All</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
 </Project>
