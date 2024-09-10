@@ -67,7 +67,7 @@ namespace FFMpegCore.Arguments
             _arguments.Add("r", precision);
             if (block_size != null && block_size >= 0)
             {
-                _arguments.Add("b", block_size.ToString());
+                _arguments.Add("b", block_size.ToString()!);
             }
         }
 

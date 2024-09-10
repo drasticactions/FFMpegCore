@@ -5,7 +5,7 @@
         <AssemblyVersion>5.0.0.0</AssemblyVersion>
         <LangVersion>default</LangVersion>
         <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <ImplicitUsings>enable</ImplicitUsings>
 
         <RepositoryType>GitHub</RepositoryType>

@@ -18,7 +18,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private string Escape(string value) => value.Replace("'", @"'\''");
+        private static string Escape(string value) => value.Replace("'", @"'\''");
 
         private readonly string _tempFileName = Path.Combine(GlobalFFOptions.Current.TemporaryFilesFolder, $"concat_{Guid.NewGuid()}.txt");
 

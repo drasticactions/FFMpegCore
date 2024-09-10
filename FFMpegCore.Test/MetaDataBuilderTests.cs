@@ -37,7 +37,7 @@ namespace FFMpegCore.Test
                 .AddChapters(source.Tracks, x => (x.Duration, x.Title));
 
             var metadata = builder.Build();
-            var serialized = MetaDataSerializer.Instance.Serialize(metadata);
+            var serialized = MetaDataSerializer.Serialize(metadata);
 
             Assert.IsTrue(serialized.StartsWith(";FFMETADATA1", StringComparison.OrdinalIgnoreCase));
             Assert.IsTrue(serialized.Contains("genre=Synthwave; Classics", StringComparison.OrdinalIgnoreCase));

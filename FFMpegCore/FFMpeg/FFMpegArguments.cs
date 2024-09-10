@@ -40,7 +40,7 @@ namespace FFMpegCore
         public FFMpegArguments AddDeviceInput(string device, Action<FFMpegArgumentOptions>? addArguments = null) => WithInput(new InputDeviceArgument(device), addArguments);
         public FFMpegArguments AddPipeInput(IPipeSource sourcePipe, Action<FFMpegArgumentOptions>? addArguments = null) => WithInput(new InputPipeArgument(sourcePipe), addArguments);
         public FFMpegArguments AddMetaData(string content, Action<FFMpegArgumentOptions>? addArguments = null) => WithInput(new MetaDataArgument(content), addArguments);
-        public FFMpegArguments AddMetaData(IReadOnlyMetaData metaData, Action<FFMpegArgumentOptions>? addArguments = null) => WithInput(new MetaDataArgument(MetaDataSerializer.Instance.Serialize(metaData)), addArguments);
+        public FFMpegArguments AddMetaData(IReadOnlyMetaData metaData, Action<FFMpegArgumentOptions>? addArguments = null) => WithInput(new MetaDataArgument(MetaDataSerializer.Serialize(metaData)), addArguments);
 
         /// <summary>
         /// Maps the metadata of the given stream

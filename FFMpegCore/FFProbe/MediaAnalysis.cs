@@ -7,15 +7,15 @@ namespace FFMpegCore
     {
         internal MediaAnalysis(FFProbeAnalysis analysis)
         {
-            Format = ParseFormat(analysis.Format);
-            Chapters = analysis.Chapters.Select(c => ParseChapter(c)).ToList();
+            Format = MediaAnalysis.ParseFormat(analysis.Format);
+            Chapters = analysis.Chapters.Select(c => MediaAnalysis.ParseChapter(c)).ToList();
             VideoStreams = analysis.Streams.Where(stream => stream.CodecType == "video").Select(ParseVideoStream).ToList();
             AudioStreams = analysis.Streams.Where(stream => stream.CodecType == "audio").Select(ParseAudioStream).ToList();
             SubtitleStreams = analysis.Streams.Where(stream => stream.CodecType == "subtitle").Select(ParseSubtitleStream).ToList();
             ErrorData = analysis.ErrorData;
         }
 
-        private MediaFormat ParseFormat(Format analysisFormat)
+        private static MediaFormat ParseFormat(Format analysisFormat)
         {
             return new MediaFormat
             {
@@ -30,9 +30,9 @@ namespace FFMpegCore
             };
         }
 
-        private ChapterData ParseChapter(Chapter analysisChapter)
+        private static ChapterData ParseChapter(Chapter analysisChapter)
         {
-            var title = analysisChapter.Tags.FirstOrDefault(t => t.Key == "title").Value;
+            var title = analysisChapter.Tags?.FirstOrDefault(t => t.Key == "title").Value ?? string.Empty;
             var start = MediaAnalysisUtils.ParseDuration(analysisChapter.StartTime);
             var end = MediaAnalysisUtils.ParseDuration(analysisChapter.EndTime);
 
@@ -59,7 +59,7 @@ namespace FFMpegCore
         public List<SubtitleStream> SubtitleStreams { get; }
         public IReadOnlyList<string> ErrorData { get; }
 
-        private int? GetBitDepth(FFProbeStream stream)
+        private static int? GetBitDepth(FFProbeStream stream)
         {
             var bitDepth = int.TryParse(stream.BitsPerRawSample, out var bprs) ? bprs :
                 stream.BitsPerSample;
@@ -91,7 +91,7 @@ namespace FFMpegCore
                 Language = stream.GetLanguage(),
                 Disposition = MediaAnalysisUtils.FormatDisposition(stream.Disposition),
                 Tags = stream.Tags.ToCaseInsensitive(),
-                BitDepth = GetBitDepth(stream),
+                BitDepth = MediaAnalysis.GetBitDepth(stream),
             };
         }
 
@@ -114,7 +114,7 @@ namespace FFMpegCore
                 Language = stream.GetLanguage(),
                 Disposition = MediaAnalysisUtils.FormatDisposition(stream.Disposition),
                 Tags = stream.Tags.ToCaseInsensitive(),
-                BitDepth = GetBitDepth(stream),
+                BitDepth = MediaAnalysis.GetBitDepth(stream),
             };
         }
 

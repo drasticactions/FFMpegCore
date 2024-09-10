@@ -22,7 +22,7 @@ namespace FFMpegCore
         {
             if (Path.GetExtension(output) != FileExtension.Png)
             {
-                output = Path.Combine(Path.GetDirectoryName(output), Path.GetFileNameWithoutExtension(output) + FileExtension.Png);
+                output = Path.Combine(Path.GetDirectoryName(output)!, Path.GetFileNameWithoutExtension(output) + FileExtension.Png);
             }
 
             var source = FFProbe.Analyse(input);
@@ -46,7 +46,7 @@ namespace FFMpegCore
         {
             if (Path.GetExtension(output) != FileExtension.Png)
             {
-                output = Path.Combine(Path.GetDirectoryName(output), Path.GetFileNameWithoutExtension(output) + FileExtension.Png);
+                output = Path.Combine(Path.GetDirectoryName(output)!, Path.GetFileNameWithoutExtension(output) + FileExtension.Png);
             }
 
             var source = await FFProbe.AnalyseAsync(input).ConfigureAwait(false);
@@ -61,7 +61,7 @@ namespace FFMpegCore
         {
             if (Path.GetExtension(output)?.ToLower() != FileExtension.Gif)
             {
-                output = Path.Combine(Path.GetDirectoryName(output), Path.GetFileNameWithoutExtension(output) + FileExtension.Gif);
+                output = Path.Combine(Path.GetDirectoryName(output)!, Path.GetFileNameWithoutExtension(output) + FileExtension.Gif);
             }
 
             var source = FFProbe.Analyse(input);
@@ -76,7 +76,7 @@ namespace FFMpegCore
         {
             if (Path.GetExtension(output)?.ToLower() != FileExtension.Gif)
             {
-                output = Path.Combine(Path.GetDirectoryName(output), Path.GetFileNameWithoutExtension(output) + FileExtension.Gif);
+                output = Path.Combine(Path.GetDirectoryName(output)!, Path.GetFileNameWithoutExtension(output) + FileExtension.Gif);
             }
 
             var source = await FFProbe.AnalyseAsync(input).ConfigureAwait(false);
@@ -102,7 +102,7 @@ namespace FFMpegCore
                 throw new ArgumentException("All images must have the same extension", nameof(images));
             }
 
-            var fileExtension = fileExtensions[0].ToLowerInvariant();
+            var fileExtension = fileExtensions[0]!.ToLowerInvariant();
             int? width = null, height = null;
 
             var tempFolderName = Path.Combine(GlobalFFOptions.Current.TemporaryFilesFolder, Guid.NewGuid().ToString());
@@ -281,7 +281,7 @@ namespace FFMpegCore
         {
             if (Path.GetExtension(input) != Path.GetExtension(output))
             {
-                output = Path.Combine(Path.GetDirectoryName(output), Path.GetFileNameWithoutExtension(output), Path.GetExtension(input));
+                output = Path.Combine(Path.GetDirectoryName(output)!, Path.GetFileNameWithoutExtension(output), Path.GetExtension(input));
             }
 
             return FFMpegArguments
@@ -437,7 +437,7 @@ namespace FFMpegCore
             return FFMpegCache.PixelFormats.Values.ToList().AsReadOnly();
         }
 
-        public static bool TryGetPixelFormat(string name, out PixelFormat format)
+        public static bool TryGetPixelFormat(string name, out PixelFormat? format)
         {
             if (!GlobalFFOptions.Current.UseCache)
             {
@@ -454,7 +454,7 @@ namespace FFMpegCore
         {
             if (TryGetPixelFormat(name, out var fmt))
             {
-                return fmt;
+                return fmt ?? throw new FFMpegException(FFMpegExceptionType.Operation, $"Pixel format \"{name}\" not supported");
             }
 
             throw new FFMpegException(FFMpegExceptionType.Operation, $"Pixel format \"{name}\" not supported");
@@ -550,7 +550,7 @@ namespace FFMpegCore
         public static IReadOnlyList<Codec> GetSubtitleCodecs() => GetCodecs(CodecType.Subtitle);
         public static IReadOnlyList<Codec> GetDataCodecs() => GetCodecs(CodecType.Data);
 
-        public static bool TryGetCodec(string name, out Codec codec)
+        public static bool TryGetCodec(string name, out Codec? codec)
         {
             if (!GlobalFFOptions.Current.UseCache)
             {
@@ -608,7 +608,7 @@ namespace FFMpegCore
             return FFMpegCache.ContainerFormats.Values.ToList().AsReadOnly();
         }
 
-        public static bool TryGetContainerFormat(string name, out ContainerFormat fmt)
+        public static bool TryGetContainerFormat(string name, out ContainerFormat? fmt)
         {
             if (!GlobalFFOptions.Current.UseCache)
             {
@@ -625,7 +625,7 @@ namespace FFMpegCore
         {
             if (TryGetContainerFormat(name, out var fmt))
             {
-                return fmt;
+                return fmt ?? throw new FFMpegException(FFMpegExceptionType.Operation, $"Container format \"{name}\" not supported");
             }
 
             throw new FFMpegException(FFMpegExceptionType.Operation, $"Container format \"{name}\" not supported");

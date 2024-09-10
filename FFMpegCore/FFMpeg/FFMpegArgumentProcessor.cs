@@ -144,7 +144,7 @@ namespace FFMpegCore
 
             using var instance = processArguments.Start();
             var cancelled = false;
-            void OnCancelEvent(object sender, int timeout)
+            void OnCancelEvent(object? sender, int timeout)
             {
                 cancelled = true;
                 instance.SendInput("q");
@@ -225,8 +225,7 @@ namespace FFMpegCore
             //If neither local nor global loglevel is null, set the argument.
             if (_logLevel != null)
             {
-                var normalizedLogLevel = _logLevel.ToString()
-                                                     .ToLower();
+                var normalizedLogLevel = _logLevel.ToString()?.ToLower();
                 arguments += $" -v {normalizedLogLevel}";
             }
 
@@ -260,7 +259,7 @@ namespace FFMpegCore
             return processArguments;
         }
 
-        private void ErrorData(object sender, string msg)
+        private void ErrorData(object? sender, string msg)
         {
             _onError?.Invoke(msg);
 
@@ -282,7 +281,7 @@ namespace FFMpegCore
             _onPercentageProgress(percentage);
         }
 
-        private void OutputData(object sender, string msg)
+        private void OutputData(object? sender, string msg)
         {
             Debug.WriteLine(msg);
             _onOutput?.Invoke(msg);

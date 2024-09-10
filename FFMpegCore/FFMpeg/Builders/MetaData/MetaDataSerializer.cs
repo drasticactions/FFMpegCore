@@ -6,7 +6,7 @@ namespace FFMpegCore.Builders.MetaData
     {
         public static readonly MetaDataSerializer Instance = new();
 
-        public string Serialize(IReadOnlyMetaData metaData)
+        public static string Serialize(IReadOnlyMetaData metaData)
         {
             var sb = new StringBuilder()
                 .AppendLine(";FFMETADATA1");
