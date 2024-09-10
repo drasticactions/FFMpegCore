@@ -661,7 +661,7 @@ namespace FFMpegCore.Test
             using var outputFile = new TemporaryFile("out.mp4");
             var dataReceived = false;
 
-            GlobalFFOptions.Configure(opt => opt.Encoding = Encoding.UTF8);
+            GlobalFFOptions.Configure(opt => opt.Encoding = Encoding.UTF8.EncodingName);
             var success = FFMpegArguments
                 .FromFileInput(TestResources.Mp4Video)
                 .WithGlobalOptions(options => options
