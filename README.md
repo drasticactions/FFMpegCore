@@ -1,3 +1,9 @@
+This is a modified version of FFMpegCore that:
+
+- Removes the depenendency on Json.NET and replaces it with System.Text.Json
+- Uses Source Generation for Json Deserialization.
+- Supports trimming and NativeAOT
+
 # [FFMpegCore](https://www.nuget.org/packages/FFMpegCore/) 
 [![NuGet Badge](https://buildstats.info/nuget/FFMpegCore)](https://www.nuget.org/packages/FFMpegCore/)
 [![GitHub issues](https://img.shields.io/github/issues/rosenbjerg/FFMpegCore)](https://github.com/rosenbjerg/FFMpegCore/issues)
