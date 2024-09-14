@@ -1,24 +1,16 @@
 <Project>
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
         <NeutralLanguage>en</NeutralLanguage>
         <LangVersion>default</LangVersion>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <ImplicitUsings>enable</ImplicitUsings>
-
         <RepositoryType>GitHub</RepositoryType>
         <RepositoryUrl>https://github.com/drasticactions/FFMpegCore</RepositoryUrl>
         <PackageProjectUrl>https://github.com/drasticactions/FFMpegCore</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <NeutralLanguage>en</NeutralLanguage>
+        <Version>6.0.0-preview</Version>
         <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
     </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="GitVersion.MSBuild">
-            <PrivateAssets>All</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
-
 </Project>

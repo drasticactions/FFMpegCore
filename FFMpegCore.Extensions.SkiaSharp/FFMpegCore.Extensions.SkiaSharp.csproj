@@ -1,13 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
         <IsPackable>true</IsPackable>
         <Description>Image extension for FFMpegCore using SkiaSharp</Description>
         <PackageOutputPath>../nupkg</PackageOutputPath>
+        <PackageName>FFMpegCore.Extensions.SkiaSharp.NativeAOT</PackageName>
         <PackageReleaseNotes>
         </PackageReleaseNotes>
         <PackageTags>ffmpeg ffprobe convert video audio mediafile resize analyze muxing skiasharp</PackageTags>
-        <Authors>Malte Rosenbjerg, Vlad Jerca, Max Bagryantsev, Dimitri Vranken</Authors>
+        <Authors>Malte Rosenbjerg, Vlad Jerca, Max Bagryantsev, Dimitri Vranken, Drastic Actions</Authors>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,5 +19,4 @@
     <ItemGroup>
       <ProjectReference Include="..\FFMpegCore\FFMpegCore.csproj" />
     </ItemGroup>
-
 </Project>

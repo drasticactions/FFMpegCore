@@ -4,12 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <Description>Image extension for FFMpegCore using System.Common.Drawing</Description>
-    <PackageVersion>5.0.0</PackageVersion>
+    <PackageName>FFMpegCore.Extensions.System.Drawing.Common.NativeAOT</PackageName>
     <PackageOutputPath>../nupkg</PackageOutputPath>
     <PackageReleaseNotes>
     </PackageReleaseNotes>
     <PackageTags>ffmpeg ffprobe convert video audio mediafile resize analyze muxing</PackageTags>
-    <Authors>Malte Rosenbjerg, Vlad Jerca, Max Bagryantsev</Authors>
+    <Authors>Malte Rosenbjerg, Vlad Jerca, Max Bagryantsev, Drastic Actions</Authors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,5 +19,4 @@
   <ItemGroup>
     <ProjectReference Include="..\FFMpegCore\FFMpegCore.csproj"/>
   </ItemGroup>
-
 </Project>
